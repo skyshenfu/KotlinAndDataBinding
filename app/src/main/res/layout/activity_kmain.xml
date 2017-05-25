@@ -3,13 +3,13 @@
     <data>
         <variable
             name="user"
-            type="com.pain.wetestkotlin.ObUser"/>
+            type="com.pain.wetestkotlin.models.ObUser"/>
         <variable
             name="doublebindUser"
-            type="com.pain.wetestkotlin.DbUser"/>
+            type="com.pain.wetestkotlin.models.DbUser"/>
         <variable
             name="presenter"
-            type="com.pain.wetestkotlin.KMainActivity.Presenter"/>
+            type="com.pain.wetestkotlin.activities.KMainActivity.Presenter"/>
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical" android:layout_width="match_parent"
@@ -34,6 +34,12 @@
         <TextView
             android:id="@+id/text_efg"
             android:text="@{doublebindUser.dbname}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/button_one"
+            android:text="here"
+            android:onClick="@{()->presenter.onClick1()}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>

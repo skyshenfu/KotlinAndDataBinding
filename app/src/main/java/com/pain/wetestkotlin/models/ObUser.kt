@@ -1,7 +1,8 @@
-package com.pain.wetestkotlin
+package com.pain.wetestkotlin.models
 
 import android.databinding.BaseObservable
 import android.databinding.Bindable
+import com.pain.wetestkotlin.BR
 
 /**
  * Created by zty
