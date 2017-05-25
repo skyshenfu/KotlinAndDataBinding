@@ -1,4 +1,4 @@
-package com.pain.myapplication;
+package com.pain.wetestkotlin;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

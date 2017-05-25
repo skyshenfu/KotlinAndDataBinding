@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="user"
+            type="com.pain.wetestkotlin.ObUser"/>
+        <variable
+            name="doublebindUser"
+            type="com.pain.wetestkotlin.DbUser"/>
+        <variable
+            name="presenter"
+            type="com.pain.wetestkotlin.KMainActivity.Presenter"/>
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/text_abc"
+            android:text="@{user.obname}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/edit_123"
+            android:hint="这里输入内容"
+            android:onTextChanged="@{presenter::onTextChanged}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/edit_456"
+            android:hint="这里测试双向绑定"
+            android:text="@={doublebindUser.dbname}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/text_efg"
+            android:text="@{doublebindUser.dbname}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</layout>
