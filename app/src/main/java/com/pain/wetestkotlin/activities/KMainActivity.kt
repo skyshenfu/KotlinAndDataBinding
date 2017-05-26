@@ -54,26 +54,17 @@ class KMainActivity : AppCompatActivity() {
 
         /**
          * rxjava2的坑：在rxjava2中observable对应的是observer
-         *                       flowable对应的是subscriber
-         *                       我们只是网络请求不需要用被压策略所以用observer那套
+         *                       flowable对应的是subscriber,并且在onSubscribe中需要显示调用request否则不会进行其他操作
          */
         fun onClick1(){
             Log.e("here click","hahahahah")
-            val observer=object : Observer<ApiResponse<ArticleTypeBean>>{
-                private var disposable:Disposable?=null
-                override fun onSubscribe(d: Disposable?) {
-                    this.disposable=d
+            val subscriber=object : Subscriber<ApiResponse<ArticleTypeBean>>{
+                override fun onSubscribe(s: Subscription?) {
+                    s!!.request(Long.MAX_VALUE)
                 }
 
-
                 override fun onNext(t: ApiResponse<ArticleTypeBean>?) {
-                    if (disposable!=null){
-                        Log.e("data", disposable!!.isDisposed.toString())
-                        if (!disposable!!.isDisposed)
-                            disposable!!.dispose()
-                        Log.e("data", disposable!!.isDisposed.toString())
-                    }
-                    Log.e("data",Thread.currentThread().name)
+                    Log.e("data","msg2")
                 }
 
                 override fun onError(e: Throwable?) {
@@ -82,13 +73,12 @@ class KMainActivity : AppCompatActivity() {
 
                 override fun onComplete() {
                     Log.e("data","msg4")
-                    Log.e("data", disposable!!.isDisposed.toString())
                 }
 
             }
             NetApi.instance.gainArticleResult()
                     .compose(SchedulersUtil.iotomain())
-                    .subscribe(observer)
+                    .subscribe(subscriber)
 
         }
     }

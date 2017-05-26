@@ -1,9 +1,7 @@
 package com.pain.wetestkotlin.utils
 
 import android.util.Log
-import io.reactivex.Observable
-import io.reactivex.ObservableSource
-import io.reactivex.ObservableTransformer
+import io.reactivex.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -16,9 +14,9 @@ import io.reactivex.schedulers.Schedulers
  */
 class SchedulersUtil{
     companion object{
-        fun <T> iotomain():ObservableTransformer<T,T>{
+        fun <T> iotomain(): FlowableTransformer<T, T> {
             Log.e("HAHA",this.toString())
-         return ObservableTransformer { upstream ->
+         return FlowableTransformer { upstream ->
              upstream!!.subscribeOn(Schedulers.io())
                      .observeOn(AndroidSchedulers.mainThread())
          }

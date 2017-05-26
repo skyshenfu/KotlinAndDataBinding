@@ -16,5 +16,5 @@ import retrofit2.http.POST
 
 interface NetRequests {
     @POST("/mobile/articleClass/list.json")
-    fun gainArticleResult(): Observable<ApiResponse<ArticleTypeBean>>
+    fun gainArticleResult(): Flowable<ApiResponse<ArticleTypeBean>>
 }
