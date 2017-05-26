@@ -12,6 +12,7 @@ import com.pain.wetestkotlin.beans.ArticleTypeBean
 import com.pain.wetestkotlin.databinding.ActivityKmainBinding
 import com.pain.wetestkotlin.utils.ApiResponse
 import com.pain.wetestkotlin.utils.NetApi
+import com.pain.wetestkotlin.utils.SchedulersUtil
 import io.reactivex.FlowableSubscriber
 import io.reactivex.Observable
 import io.reactivex.Observer
@@ -55,7 +56,7 @@ class KMainActivity : AppCompatActivity() {
                 }
 
                 override fun onNext(t: ApiResponse<ArticleTypeBean>?) {
-                    Log.e("data","msg2")
+                    Log.e("data",Thread.currentThread().name)
                 }
 
                 override fun onError(e: Throwable?) {
@@ -68,8 +69,7 @@ class KMainActivity : AppCompatActivity() {
 
             }
             NetApi.instance.gainArticleResult()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
+                    .compose(SchedulersUtil.iotomain())
                     .subscribe(observer)
 
         }
