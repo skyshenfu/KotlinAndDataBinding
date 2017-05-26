@@ -1,8 +1,6 @@
 package com.pain.wetestkotlin.utils
 
 import com.pain.wetestkotlin.beans.ArticleTypeBean
-import io.reactivex.Flowable
-import io.reactivex.FlowableSubscriber
 import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -27,8 +25,8 @@ class NetApi private constructor() {
         }
     }
 
-    fun getArticleResult(): Observable<ApiResponse<ArticleTypeBean>> {
-        return netRequest!!.getArticleResult()
+    fun gainArticleResult(): Observable<ApiResponse<ArticleTypeBean>> {
+        return netRequest!!.gainArticleResult()
     }
 
     init {

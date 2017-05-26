@@ -67,7 +67,7 @@ class KMainActivity : AppCompatActivity() {
                 }
 
             }
-            NetApi.instance.getArticleResult()
+            NetApi.instance.gainArticleResult()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(observer)
