@@ -56,6 +56,7 @@ class KMainActivity : AppCompatActivity() {
                 }
 
                 override fun onNext(t: ApiResponse<ArticleTypeBean>?) {
+
                     Log.e("data",Thread.currentThread().name)
                 }
 
