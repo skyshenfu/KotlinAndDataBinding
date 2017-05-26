@@ -3,6 +3,7 @@ package com.pain.wetestkotlin.utils
 import com.pain.wetestkotlin.beans.ArticleTypeBean
 import io.reactivex.Flowable
 import io.reactivex.FlowableSubscriber
+import io.reactivex.Observable
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -16,7 +17,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
  *版本：1.0.0
  *描述：
  */
-class NetApi {
+class NetApi private constructor() {
     var retrofit:Retrofit?=null
     var httpClientBuilder: OkHttpClient.Builder?=null
     var netRequest:NetRequests?=null
@@ -25,19 +26,19 @@ class NetApi {
             NetApi()
         }
     }
-    private constructor(){
+
+    fun getArticleResult(): Observable<ApiResponse<ArticleTypeBean>> {
+        return netRequest!!.getArticleResult()
+    }
+
+    init {
         httpClientBuilder=OkHttpClient.Builder().addInterceptor(RequestInterceptor())
-        retrofit=Retrofit.Builder().client((httpClientBuilder as OkHttpClient.Builder?)!!.build())
+        retrofit=Retrofit.Builder().client(httpClientBuilder!!.build())
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .baseUrl("http://all-help.com/")
                 .build()
         netRequest=retrofit!!.create(NetRequests::class.java)
-
-    }
-
-    fun getArticleResult(): Flowable<ApiResponse<ArticleTypeBean>> {
-        return netRequest!!.getArticleResult()
     }
 }

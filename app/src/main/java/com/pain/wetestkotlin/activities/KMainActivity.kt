@@ -13,14 +13,12 @@ import com.pain.wetestkotlin.databinding.ActivityKmainBinding
 import com.pain.wetestkotlin.utils.ApiResponse
 import com.pain.wetestkotlin.utils.NetApi
 import io.reactivex.FlowableSubscriber
+import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import org.reactivestreams.Subscriber
-import org.reactivestreams.Subscription
-
 /**
  * Created by zty
  *个人github地址：http://www.github.com/skyshenfu
@@ -51,22 +49,23 @@ class KMainActivity : AppCompatActivity() {
         }
         fun onClick1(){
             Log.e("here click","hahahahah")
-            val observer=object :FlowableSubscriber<ApiResponse<ArticleTypeBean>>{
-                override fun onSubscribe(s: Subscription?) {
-                    Log.e("here","data0")
-                }
-
-                override fun onError(e: Throwable?) {
-                    Log.e("here","data1")
+            val observer=object : Observer<ApiResponse<ArticleTypeBean>>{
+                override fun onSubscribe(d: Disposable?) {
+                    Log.e("data","msg1")
                 }
 
                 override fun onNext(t: ApiResponse<ArticleTypeBean>?) {
-                    Log.e("here","data2")
+                    Log.e("data","msg2")
+                }
+
+                override fun onError(e: Throwable?) {
+                    Log.e("data","msg3")
                 }
 
                 override fun onComplete() {
-                    Log.e("here","data3")
+                    Log.e("data","msg4")
                 }
+
             }
             NetApi.instance.getArticleResult()
                     .subscribeOn(Schedulers.io())

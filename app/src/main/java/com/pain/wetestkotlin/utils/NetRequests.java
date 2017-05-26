@@ -3,6 +3,7 @@ package com.pain.wetestkotlin.utils;
 import com.pain.wetestkotlin.beans.ArticleTypeBean;
 
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import retrofit2.http.POST;
 
 /**
@@ -15,5 +16,5 @@ import retrofit2.http.POST;
 
 public interface NetRequests {
     @POST("/mobile/articleClass/list.json")
-    public Flowable<ApiResponse<ArticleTypeBean>> getArticleResult();
+    public Observable<ApiResponse<ArticleTypeBean>> getArticleResult();
 }
