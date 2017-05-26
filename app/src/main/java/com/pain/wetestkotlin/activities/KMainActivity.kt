@@ -20,6 +20,9 @@ import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import org.reactivestreams.Subscriber
+import org.reactivestreams.Subscription
+
 /**
  * Created by zty
  *个人github地址：http://www.github.com/skyshenfu
@@ -48,15 +51,28 @@ class KMainActivity : AppCompatActivity() {
          fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int){
              user!!.obname=s.toString()
         }
+
+        /**
+         * rxjava2的坑：在rxjava2中observable对应的是observer
+         *                       flowable对应的是subscriber
+         *                       我们只是网络请求不需要用被压策略所以用observer那套
+         */
         fun onClick1(){
             Log.e("here click","hahahahah")
             val observer=object : Observer<ApiResponse<ArticleTypeBean>>{
+                private var disposable:Disposable?=null
                 override fun onSubscribe(d: Disposable?) {
-                    Log.e("data","msg1")
+                    this.disposable=d
                 }
 
-                override fun onNext(t: ApiResponse<ArticleTypeBean>?) {
 
+                override fun onNext(t: ApiResponse<ArticleTypeBean>?) {
+                    if (disposable!=null){
+                        Log.e("data", disposable!!.isDisposed.toString())
+                        if (!disposable!!.isDisposed)
+                            disposable!!.dispose()
+                        Log.e("data", disposable!!.isDisposed.toString())
+                    }
                     Log.e("data",Thread.currentThread().name)
                 }
 
@@ -66,6 +82,7 @@ class KMainActivity : AppCompatActivity() {
 
                 override fun onComplete() {
                     Log.e("data","msg4")
+                    Log.e("data", disposable!!.isDisposed.toString())
                 }
 
             }
