@@ -39,7 +39,13 @@
         <Button
             android:id="@+id/button_one"
             android:text="here"
-            android:onClick="@{()->presenter.onClick1()}"
+            android:onClick="@{presenter::onClick}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/button_two"
+            android:text="TestRXBUS"
+            android:onClick="@{presenter::onClick}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>

@@ -10,16 +10,7 @@ import com.pain.wetestkotlin.models.ObUser
 import com.pain.wetestkotlin.R
 import com.pain.wetestkotlin.beans.ArticleTypeBean
 import com.pain.wetestkotlin.databinding.ActivityKmainBinding
-import com.pain.wetestkotlin.utils.ApiResponse
-import com.pain.wetestkotlin.utils.NetApi
-import com.pain.wetestkotlin.utils.SchedulersUtil
-import io.reactivex.FlowableSubscriber
-import io.reactivex.Observable
-import io.reactivex.Observer
-import io.reactivex.Scheduler
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
+import com.pain.wetestkotlin.utils.*
 import org.reactivestreams.Subscriber
 import org.reactivestreams.Subscription
 
@@ -56,30 +47,39 @@ class KMainActivity : AppCompatActivity() {
          * rxjava2的坑：在rxjava2中observable对应的是observer
          *                       flowable对应的是subscriber,并且在onSubscribe中需要显示调用request否则不会进行其他操作
          */
-        fun onClick1(){
-            Log.e("here click","hahahahah")
-            val subscriber=object : Subscriber<ApiResponse<ArticleTypeBean>>{
+        fun onClick(view: View){
+            when(view.id){
+                R.id.button_one->oneclick()
+                R.id.button_two->twoclick()
+
+            }
+        }
+
+         fun oneclick() {
+            val subscriber = object : Subscriber<ApiResponse<ArticleTypeBean>> {
                 override fun onSubscribe(s: Subscription?) {
                     s!!.request(Long.MAX_VALUE)
                 }
 
                 override fun onNext(t: ApiResponse<ArticleTypeBean>?) {
-                    Log.e("data","msg2")
+                    Log.e("data", "msg2")
                 }
 
                 override fun onError(e: Throwable?) {
-                    Log.e("data","msg3")
+                    Log.e("data", "msg3")
                 }
 
                 override fun onComplete() {
-                    Log.e("data","msg4")
+                    Log.e("data", "msg4")
                 }
 
             }
             NetApi.instance.gainArticleResult()
                     .compose(SchedulersUtil.iotomain())
                     .subscribe(subscriber)
-
+        }
+         fun twoclick(){
+            RxBus.getInstance().post(Event("hello"))
         }
     }
 

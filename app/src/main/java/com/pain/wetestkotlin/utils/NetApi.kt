@@ -21,7 +21,7 @@ class NetApi private constructor() {
     var httpClientBuilder: OkHttpClient.Builder?=null
     var netRequest:NetRequests?=null
     companion object{
-        val instance by lazy(LazyThreadSafetyMode.NONE){
+        val instance by lazy(LazyThreadSafetyMode.SYNCHRONIZED){
             NetApi()
         }
     }
