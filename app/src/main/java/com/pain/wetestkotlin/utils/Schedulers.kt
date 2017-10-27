@@ -17,7 +17,7 @@ class SchedulersUtil{
         fun <T> iotomain(): FlowableTransformer<T, T> {
             Log.e("HAHA",this.toString())
          return FlowableTransformer { upstream ->
-             upstream!!.subscribeOn(Schedulers.io())
+             upstream.subscribeOn(Schedulers.io())
                      .observeOn(AndroidSchedulers.mainThread())
          }
         }

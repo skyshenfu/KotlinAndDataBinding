@@ -30,5 +30,15 @@ class App:Application(){
                         Log.e("aaa","cc")
                     }
                 }
+        RxBus.getInstance().toObservable(Event::class.java)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object :Consumer<Event>{
+                    override fun accept(t: Event) {
+                        Toast.makeText(applicationContext,"消费了",Toast.LENGTH_SHORT).show()
+
+                    }
+
+                })
     }
 }
